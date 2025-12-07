@@ -1,22 +1,24 @@
 name: Security Scan # Bu workflow'un GitHub arayüzündeki adı
+
 on:
- pull_request:
-  types: [opened, synchronize] # Yeni açılan veya commit eklenen PR'larda
+  pull_request: # Bu workflow Pull Request açıldığında veya güncellendiğinde çalışacak
+    types: [opened, synchronize] # Yeni açılan veya commit eklenen PR'larda
 
 jobs:
- check-exploit: # Çalışacak işin adı
-  runs-on: ubuntu-latest # Workflow'un çalışacağı işletim sistemi
-  permissions:
-    contents: read
-    pull_requests: write
-steps:
- - name: Checkout Code # PR'daki kodu indirme adımı
-   uses: actions/checkout@v4
+  check-exploit: # Çalışacak işin adı
+    runs-on: ubuntu-latest # Workflow'un çalışacağı işletim sistemi
+    permissions:
+      contents: read # Kod içeriğini okuma izni
+      pull-requests: write # PR'a yorum yazabilmesi için gerekli izin
 
-  -name: Run Check-Exploit Scanner # Sizin botunuzu çalıştırma adımı
-   uses: Yemresalcan/Check-Exploit@main # BURAYI KENDİ KULLANICI ADINIZ/REPO ADINIZ@main olarak güncelleyin
-   with:
-     github-token: ${{ secrets.GITHUB_TOKEN }} # GitHub'ın otomatik token'ı
-      
+    steps:
+      - name: Checkout Code # PR'daki kodu indirme adımı
+        uses: actions/checkout@v4
 
-
+      - name: Run Check-Exploit Scanner # Sizin botunuzu çalıştırma adımı
+        uses: Yemresalcan/Check-Exploit@main
+        with: 
+          github-token: ${{ secrets.GITHUB_TOKEN }} # GitHub'ın otomatik token'ı
+          # Gemini AI entegrasyonunu kullanmak isterseniz:
+          gemini-api-key: ${{ secrets.GEMINI_API_KEY }}
+          model: 'gemini-1.5-flash' # Kullanılacak Gemini modeli
