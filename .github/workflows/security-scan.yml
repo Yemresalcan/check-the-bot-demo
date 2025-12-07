@@ -1,0 +1,22 @@
+name: Security Scan # Bu workflow'un GitHub arayüzündeki adı
+on:
+ pull_request:
+  types: [opened, synchronize] # Yeni açılan veya commit eklenen PR'larda
+
+jobs:
+ check-exploit: # Çalışacak işin adı
+  runs-on: ubuntu-latest # Workflow'un çalışacağı işletim sistemi
+  permissions:
+    contents: read
+    pull_requests: write
+steps:
+ - name: Checkout Code # PR'daki kodu indirme adımı
+   uses: actions/checkout@v4
+
+  -name: Run Check-Exploit Scanner # Sizin botunuzu çalıştırma adımı
+   uses: Yemresalcan/Check-Exploit@main # BURAYI KENDİ KULLANICI ADINIZ/REPO ADINIZ@main olarak güncelleyin
+   with:
+     github-token: ${{ secrets.GITHUB_TOKEN }} # GitHub'ın otomatik token'ı
+      
+
+
