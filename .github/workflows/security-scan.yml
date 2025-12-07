@@ -21,4 +21,4 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }} # GitHub'ın otomatik token'ı
           # Gemini AI entegrasyonunu kullanmak isterseniz:
           gemini-api-key: ${{ secrets.GEMINI_API_KEY }}
-          model: 'gemini-1.5-flash' # Kullanılacak Gemini modeli
+          model: 'gemini-2.5-flash' # Kullanılacak Gemini modeli
