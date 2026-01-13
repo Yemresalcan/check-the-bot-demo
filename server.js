@@ -9,7 +9,7 @@ const port = 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-// Initialize Database
+// Initialize Database fdfs
 const db = new sqlite3.Database(':memory:');
 db.serialize(() => {
     db.run("CREATE TABLE users (id INT, username TEXT, password TEXT)");
